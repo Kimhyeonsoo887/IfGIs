@@ -1,0 +1,16 @@
+.headerDiv{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: #181818;
+
+}
+
+.headerLogoLay{
+    width: 80px;
+    height: 50px;  
+}
+.mainLogo{
+    width: 80px;
+    height: 50px;    
+}
