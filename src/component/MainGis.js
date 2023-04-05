@@ -1,45 +1,111 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 const { kakao} = window;
 
 export default function MainGis(){
-    
+   
+    const [coordinateData,setCoordinatreData] = useState([]);
+    let openMarker = "";
 
-    useEffect(() =>{
-        const container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-        const options = { //지도를 생성할 때 필요한 기본 옵션
-            center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-            level: 10 //지도의 레벨(확대, 축소 정도)
-        };
-        const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    // 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+    let markers = [];
 
-        // 마커가 표시될 위치입니다 
-        var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
 
-        // 마커를 생성합니다
+    let container;
+    let options;
+    let map;
+
+    async function getCoordinate(){
+        axios.get("http://localhost:8080/getCoordinate", {
+            }).then(function (response) {
+                const data = response.data;
+                setCoordinatreData(data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+      
+    }
+
+    function markerSetMap() {
+ 
+      for (var i = 0; i < coordinateData.length; i++) {
+        var markerPosition = new kakao.maps.LatLng(
+          coordinateData[i].coordinate_y,
+          coordinateData[i].coordinate_x
+        );
+
         var marker = new kakao.maps.Marker({
-            position: markerPosition
+          position: markerPosition,
         });
 
-        // 마커가 지도 위에 표시되도록 설정합니다
         marker.setMap(map);
+      } 
+    } 
 
-    },[]);
+
+
+    useEffect(() =>{
+
+      
+      container = document.getElementById("map");
+      options = {
+        center: new kakao.maps.LatLng(37.464893, 126.87382),
+        level: 5,
+      };
+      map = new kakao.maps.Map(container, options);
+ 
+      async function fetchCoordinateData() {
+        if(coordinateData.length > 0){
+          markerSetMap();
+        }else{
+          await getCoordinate();
+        }
+        
+      } 
+      fetchCoordinateData();
+
+
+
+      kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+
+        
+        // // 클릭한 위도, 경도 정보를 가져옵니다 
+        let latlng = mouseEvent.latLng; 
+
+        let marker = new kakao.maps.Marker({
+          position: latlng,
+          clickable: true
+        });
+        
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        } 
+
+        marker.setMap(map);
+        markers.push(marker);
+        
+
+        // var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+        // message += '경도는 ' + latlng.getLng() + ' 입니다';
+        
+        // var resultDiv = document.getElementById('clickLatlng'); 
+        // resultDiv.innerHTML = message;
+        
+      });
+
+    },[coordinateData]); 
+    
+  
+
+    
+
+
+    
     
     return (
 
         <div className="map_wrap">
-            <div id="map" style={{width:100+"%", height:700+"px"}}></div> 
-
-            {/* <div className="custom_typecontrol radius_border">
-                <span id="btnRoadmap" className="selected_btn" onclick="setMapType('roadmap')">지도</span>
-                <span id="btnSkyview" className="btn" onclick="setMapType('skyview')">스카이뷰</span>
-            </div>
-
-            <div className="custom_zoomcontrol radius_border"> 
-                <span onclick="zoomIn()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"></span>  
-                <span onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"></span>
-            </div> */}
+            <div id="map" style={{width:100+"%", height:700+"px"}}></div>
         </div>
 
        

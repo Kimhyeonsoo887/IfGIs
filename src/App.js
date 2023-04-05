@@ -1,13 +1,30 @@
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './component/Header';
-import MainGis from './component/MainGis';
+import Footer from './component/Footer';
+import MainGis from './component/MainGis.js';
+import SignUp from './component/SignUp';
+import Login from './component/Login';
+
 function App() {
+
+  
+
   return (
     <div className="App">
-      <Header></Header>
-      <MainGis></MainGis>
+      <BrowserRouter>
+        <Header/>
+        <Routes>
+          <Route path="/" element={<MainGis />}></Route>
+          <Route path="/signUp" element={<SignUp />}></Route>
+          <Route path='/login' element={<Login/>}></Route>
+        </Routes>
+        <Footer/>
+      </BrowserRouter>      
+      
+
     </div>
   );
-}
+} 
 
-export default App;
+export default App; 
