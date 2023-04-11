@@ -19,7 +19,7 @@ function App() {
           <Route path="/" element={<MainGis />}></Route>
           <Route path="/signUp" element={<SignUp />}></Route>
           <Route path='/login' element={<Login/>}></Route>
-          <Route path="/foodInfo" element={<FoodInfomation/>}></Route>
+          <Route path="/foodInfo/:la/:ma/:address" element={<FoodInfomation/>}></Route>
         </Routes>
         <Footer/>
       </BrowserRouter>      

@@ -10,17 +10,17 @@ export default function MainGis(){
     let markers = [];
     // 지도에 표시된 인포윈도우 객체를 가지고 있을 배열입니다
     let infowindows = [];
-
     let container;
     let options;
     let map;
 
-
     async function getCoordinate(){
-        axios.get("http://localhost:8080/getCoordinate", {
+        axios.get("http://183.109.96.235:8080/getFoodStoreData", {
             }).then(function (response) {
                 const data = response.data;
-                setCoordinatreData(data);
+                if(data.length != 0){
+                  setCoordinatreData(data);
+                }
             }).catch(function (error) {
                 console.log(error);
             });
@@ -31,8 +31,8 @@ export default function MainGis(){
  
       for (var i = 0; i < coordinateData.length; i++) {
         var markerPosition = new kakao.maps.LatLng(
-          coordinateData[i].coordinate_y,
-          coordinateData[i].coordinate_x
+          coordinateData[i].ma,
+          coordinateData[i].la
         );
 
         var marker = new kakao.maps.Marker({
@@ -43,7 +43,8 @@ export default function MainGis(){
       } 
     } 
 
-    function chioceMarker(latlng){
+
+    async function chioceMarker(latlng){
       
       //선택한 마커 생성 로직 start
       let marker = new kakao.maps.Marker({
@@ -60,23 +61,17 @@ export default function MainGis(){
       markers.push(marker);
       //선택한 마커 생성 로직 end
 
-      let detailAddress = getDetailAddress(latlng);
+      let detailAddress = await getDetailAddress(latlng);
 
-      console.log("1"+detailAddress);
-      if(detailAddress == undefined){
-        detailAddress = getDetailAddress(latlng)
-      }
-
-      console.log("2"+detailAddress);
       //인포윈도우 생성 로직 start
       //인포윈도우 삭제
       for (var i = 0; i < infowindows.length; i++) {
         infowindows[i].close();
       } 
 
-      var iwContent = `<a href="http://localhost:3000/foodInfo" target="_blank">${detailAddress}제보하기 ></a>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+      var iwContent = `<a href="http://183.109.96.235:3000/foodInfo/${latlng.La}/${latlng.Ma}/${detailAddress}" target="_top">${detailAddress}</a>`,
           iwPosition = new kakao.maps.LatLng(latlng); //인포윈도우 표시 위치입니다
-
+ 
       // 인포윈도우를 생성합니다
       var infowindow = new kakao.maps.InfoWindow({
           position : iwPosition, 
@@ -93,13 +88,17 @@ export default function MainGis(){
     }
 
     function getDetailAddress(latlng){
-      // 주소-좌표 변환 객체를 생성합니다
-      var geocoder = new kakao.maps.services.Geocoder();
 
-      geocoder.coord2Address(latlng.getLng(), latlng.getLat(), function(result, status){
-        if (status === kakao.maps.services.Status.OK) {
-          return result[0].address.address_name;
-        }
+      let geocoder = new kakao.maps.services.Geocoder();
+
+      return new Promise((resolve, reject) => {
+        geocoder.coord2Address(latlng.getLng(), latlng.getLat(), function(result, status){
+          if (status === kakao.maps.services.Status.OK) {
+            resolve(result[0].address.address_name);
+          } else {
+            reject();
+          }
+        });
       });
 
     }
