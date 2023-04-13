@@ -26,6 +26,7 @@ export default function Menu1() {
     <div className={styles.menuBar}>
       <Link to="/"><button className={styles.menuBtn}>메인</button></Link>
       {localUserIdChk()}
+      <Link to="/boardList"><button className={styles.menuBtn}>공지사항</button></Link>
     </div>
   );
 }

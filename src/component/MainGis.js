@@ -14,6 +14,8 @@ export default function MainGis(){
     let options;
     let map;
 
+   
+
     async function getCoordinate(){
         axios.get("http://183.109.96.235:8080/getFoodStoreData", {
             }).then(function (response) {
@@ -29,18 +31,47 @@ export default function MainGis(){
 
     function markerDefaultSetMap() {
  
-      for (var i = 0; i < coordinateData.length; i++) {
-        var markerPosition = new kakao.maps.LatLng(
+      for (let i = 0; i < coordinateData.length; i++) {
+        let markerPosition = new kakao.maps.LatLng(
           coordinateData[i].ma,
           coordinateData[i].la
         );
 
-        var marker = new kakao.maps.Marker({
+        let marker = new kakao.maps.Marker({
           position: markerPosition,
         });
 
+
+        //마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+        let iwContent = `<div style="width:200px; height:70px;">
+                            <div style="font-size:14px;">
+                              가게 이름:${coordinateData[i].storeName}<br>
+                              주소: ${coordinateData[i].address}<br>
+                              가게형식: ${coordinateData[i].storeType}<br>
+                            </div>
+                        </div>`, 
+
+        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+        // 인포윈도우를 생성합니다
+        let infowindow = new kakao.maps.InfoWindow({
+        content : iwContent,
+        removable : iwRemoveable
+        });
+
         marker.setMap(map);
+
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'click', function() {
+          // 마커 위에 인포윈도우를 표시합니다
+          infowindow.open(map, marker);  
+        });
+
       } 
+
+      
+
+
     } 
 
 
@@ -69,7 +100,7 @@ export default function MainGis(){
         infowindows[i].close();
       } 
 
-      var iwContent = `<a href="http://183.109.96.235:3000/foodInfo/${latlng.La}/${latlng.Ma}/${detailAddress}" target="_top">${detailAddress}</a>`,
+      var iwContent = `<a href="http://183.109.96.235:3000/foodInfo/${latlng.La}/${latlng.Ma}/${detailAddress}" target="_top" style="font-size:13px;">${detailAddress} <br>제보하기</a>`,
           iwPosition = new kakao.maps.LatLng(latlng); //인포윈도우 표시 위치입니다
  
       // 인포윈도우를 생성합니다
@@ -84,7 +115,6 @@ export default function MainGis(){
       //인포윈도우 생성 로직 end
 
       
-
     }
 
     function getDetailAddress(latlng){
@@ -123,12 +153,13 @@ export default function MainGis(){
       fetchCoordinateData();
 
       kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-
-        // // 클릭한 위도, 경도 정보를 가져옵니다 
+        // 클릭한 위도, 경도 정보를 가져옵니다 
         let latlng = mouseEvent.latLng; 
         chioceMarker(latlng);
 
       });
+
+      
 
     },[coordinateData]); 
     

@@ -6,6 +6,7 @@ import MainGis from './component/MainGis.js';
 import SignUp from './component/SignUp';
 import Login from './component/Login';
 import FoodInfomation  from './component/FoodInfomation';
+import BoardList from './component/BoardList';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signUp" element={<SignUp />}></Route>
           <Route path='/login' element={<Login/>}></Route>
           <Route path="/foodInfo/:la/:ma/:address" element={<FoodInfomation/>}></Route>
+          <Route path="/boardList" element={<BoardList />}></Route>
         </Routes>
         <Footer/>
       </BrowserRouter>      
