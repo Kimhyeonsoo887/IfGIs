@@ -1,18 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-const PageUl = styled.ul`
-  float: left;
-  list-style: none;
-  text-align: center;
-  border-radius: 3px;
-  color: white;
-  padding: 1px;
-  border-top: 3px solid #186ead;
-  border-bottom: 3px solid #186ead;
-  background-color: rgba(0, 0, 0, 0.4);
-`;
-
 const PageLi = styled.li`
   display: inline-block;
   font-size: 17px;
@@ -42,15 +30,19 @@ const PageSpan = styled.span`
 
 
 
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
       pageNumbers.push(i);
     }
     return (
-      <div>
+      <div >
         <nav>
-          <PageUl className="pagination">
+            <PageLi className="page-item">
+              <PageSpan onClick={() => currentPage === 1 ? null : paginate(currentPage - 1)}>
+                &lt;
+              </PageSpan>
+            </PageLi>
             {pageNumbers.map((number) => (
               <PageLi key={number} className="page-item">
                 <PageSpan onClick={() => paginate(number)} className="page-link">
@@ -58,7 +50,12 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
                 </PageSpan>
               </PageLi>
             ))}
-          </PageUl>
+
+            <PageLi className="page-item">
+              <PageSpan onClick={() => currentPage === pageNumbers.length ? null : paginate(currentPage + 1)}>
+                &gt;
+              </PageSpan>
+            </PageLi>
         </nav>
       </div>
     );

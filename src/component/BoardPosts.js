@@ -1,9 +1,18 @@
 import React from "react";
 
+import styles from "../css/ResultTable.module.css"
 const BoardPosts = ({ boards }) => {
+
     return (
-      <>
-        <table>
+      <div style={{width:1000+"px", height:300+"px",marginLeft:450+"px", borderTop:2+"px solid black"}}>
+        <table className={styles.resultTable}>
+          <colgroup>
+            <col width="10%"/>
+            {/* <col width={100}/>
+            <col width={100}/>
+            <col width={100}/>
+            <col width={100}/> */}
+          </colgroup>
           <thead>
             <tr>
               <th>번호</th>
@@ -12,7 +21,6 @@ const BoardPosts = ({ boards }) => {
               <th>작성시간</th>
               <th>조회수</th>
             </tr>
-
           </thead>
           <tbody>
             {boards.map(data => (
@@ -27,7 +35,7 @@ const BoardPosts = ({ boards }) => {
           </tbody>
         
         </table>
-      </>
+      </div>
     );
   };
   export default BoardPosts;

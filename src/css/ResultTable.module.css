@@ -1,0 +1,7 @@
+.resultTable{
+    width: 100%;
+    border: 1px solid black;
+}
+.resultTable tr>td{
+    border: 1px solid black;
+}

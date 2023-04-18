@@ -35,12 +35,13 @@ export default function BoardList(){
     return (
 
         <div>
-          <h2>게시글 목록</h2>
+          <h2>공지사항</h2>
           <BoardPosts boards={currentPosts(boards)} />
           <Pagination
             postsPerPage={postsPerPage}
             totalPosts={boards.length}
             paginate={setCurrentPage}
+            currentPage={currentPage}
           ></Pagination>
         </div>
     )
