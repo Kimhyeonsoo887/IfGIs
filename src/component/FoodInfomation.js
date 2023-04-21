@@ -8,6 +8,7 @@ export default function FoodInfomation(){
 
     let { la, ma, address } = useParams();
     const movePage = useNavigate();
+    
     function reducer(state, action){
 
         if(action.name === "paymentMtd" || action.name === "appTime"){

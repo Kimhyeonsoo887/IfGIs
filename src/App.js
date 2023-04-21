@@ -7,6 +7,7 @@ import SignUp from './component/SignUp';
 import Login from './component/Login';
 import FoodInfomation  from './component/FoodInfomation';
 import BoardList from './component/BoardList';
+import BoardDetail from './component/BoardDetail';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
           <Route path='/login' element={<Login/>}></Route>
           <Route path="/foodInfo/:la/:ma/:address" element={<FoodInfomation/>}></Route>
           <Route path="/boardList" element={<BoardList />}></Route>
+          <Route path="/boardDetail/:id" element={<BoardDetail />}></Route>
         </Routes>
         <Footer/>
       </BrowserRouter>      

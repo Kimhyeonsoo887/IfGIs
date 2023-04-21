@@ -1,7 +1,10 @@
 .resultTable{
     width: 100%;
-    border: 1px solid black;
 }
 .resultTable tr>td{
-    border: 1px solid black;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.resultTable tr>th{
+    background-color: #e0e0e0;
 }
