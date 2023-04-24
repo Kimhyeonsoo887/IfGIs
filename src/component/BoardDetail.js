@@ -1,5 +1,5 @@
-import {  useParams } from 'react-router-dom';
-import { useEffect, useState, useReducer} from 'react';
+import {  useParams, useNavigate } from 'react-router-dom';
+import { useEffect,  useReducer} from 'react';
 import axios from 'axios';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 export default function BoardDetail(){
 
     const { id } = useParams();
+    let navigate = useNavigate();
 
     //reducer뒤에는 상태 기본값을 씀
     const [boardDetails, boardDispatch] = useReducer(reducer, {
@@ -28,8 +29,12 @@ export default function BoardDetail(){
                 id: id,
             }
             }).then(function (res) {
-                if(res.status == 200){
+
+                if(res.status === 200 && res.data !== "404Error"){
                     defaultHandle(res.data);
+                }else{
+                    alert("오류가 발생했습니다. 관리자에게 문의바랍니다.");
+                    navigate(-1);//뒤로가기
                 }
             }).catch((error => {
                 console.log(`error: ${error}`)
@@ -42,10 +47,6 @@ export default function BoardDetail(){
 
         getBoardDetail();
 
-        // if(boardDetails.title === ""){
-        //     getBoardDetail();
-        // }
-        
 
     },[]);
 
@@ -55,6 +56,7 @@ export default function BoardDetail(){
     }
 
     function reducer(state, action){
+
 
         return{
             ...state,
