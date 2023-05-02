@@ -8,6 +8,10 @@ import Login from './component/Login';
 import FoodInfomation  from './component/FoodInfomation';
 import BoardList from './component/BoardList';
 import BoardDetail from './component/BoardDetail';
+import FoodDetail from './component/FoodDetail';
+
+import NotFoundPage from './component/NotFoundPage';
+
 
 function App() {
 
@@ -24,6 +28,8 @@ function App() {
           <Route path="/foodInfo/:la/:ma/:address" element={<FoodInfomation/>}></Route>
           <Route path="/boardList" element={<BoardList />}></Route>
           <Route path="/boardDetail/:id" element={<BoardDetail />}></Route>
+          <Route path="/foodDetail/:id" element={<FoodDetail />} ></Route>
+          <Route path="/*" element={<NotFoundPage></NotFoundPage>} ></Route>
         </Routes>
         <Footer/>
       </BrowserRouter>      

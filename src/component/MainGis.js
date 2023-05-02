@@ -43,11 +43,12 @@ export default function MainGis(){
 
 
         //마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-        let iwContent = `<div style="width:200px; height:70px;">
+        let iwContent = `<div style="width:200px; height:100px;">
                             <div style="font-size:14px;">
                               가게 이름:${coordinateData[i].storeName}<br>
                               주소: ${coordinateData[i].address}<br>
                               가게형식: ${coordinateData[i].storeType}<br>
+                              <a href="http://183.109.96.235:3000/foodDetail/${coordinateData[i].id}" target="_top" ">상세보기</a>
                             </div>
                         </div>`, 
 
