@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const FoodReviewPop = (props) => {
 
-    const { open, close, header } = props;
+    const { open, close, header, id } = props;
     const [imageFile, setImageFile] = useState("/images/notImages.png");
     const [formImageData, setFormImageData] = useState();
 
@@ -68,7 +68,8 @@ const FoodReviewPop = (props) => {
         formData.append("title", reviewData.title);
         formData.append("content", reviewData.content);
         formData.append("file", formImageData);
-
+        formData.append("id", id);
+        
         axios({
             url: 'http://183.109.96.235:8080/insertFoodReview', // 통신할 웹문서
             method: 'POST', // 통신할 방식
