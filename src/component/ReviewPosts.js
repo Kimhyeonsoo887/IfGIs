@@ -1,28 +1,24 @@
-import styles from "../css/ResultTable.module.css"
+
 
 const ReviewPosts = ({ reviews }) => {
 
     return (
         <div style={{width:1000+"px", height:200+"px", borderTop:2+"px solid black", display:"inline-block"}}>
          
+         
           {reviews.map(data => (
 
-            <div>
-              <img style={{width:30+"px"}} src={require(`../uploadImg/${data.fileName}`)} alt={data.fileName}/>
+            <div key={data.id} style={{borderTop : 2+ "px solid #e0e0e0"}}>
+              {data.fileName !== null ? 
+                <img style={{width:50+"px"}} src={require(`../uploadImg/${data.fileName}`)} alt={data.fileName}/> 
+                : 
+                <img style={{width:50+"px"}} src={require(`../img/noImage.gif`)}/> 
+              }
               <div>
-                <p>{data.title}</p>
-
+                <h4>{data.title}</h4>
                 <p>{data.content}</p>
               </div>
             </div>
-
-            // <tr key={data.id}>
-            //   <td><img style={{width:30+"px"}} src={require(`../uploadImg/${data.fileName}`)} alt={data.fileName}/></td>
-            //   <td>{data.title}</td>
-            //   <td>{data.content}</td> 
-              
-              
-            // </tr>
           ))}
         </div>
     )

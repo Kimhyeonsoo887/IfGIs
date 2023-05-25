@@ -29,6 +29,12 @@ const PageSpan = styled.span`
 `;
 
 
+const ActivePageSpan = styled.span`
+  
+  color: white;
+  background-color: #263a6c;
+`;
+
 
 const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
     const pageNumbers = [];
@@ -45,9 +51,15 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
             </PageLi>
             {pageNumbers.map((number) => (
               <PageLi key={number} className="page-item">
-                <PageSpan onClick={() => paginate(number)} className="page-link">
-                  {number}
-                </PageSpan>
+                {number === currentPage ? 
+                  <ActivePageSpan onClick={() => paginate(number)} className="page-link">
+                    {number}
+                  </ActivePageSpan>
+                  :
+                  <PageSpan onClick={() => paginate(number)} className="page-link">
+                    {number}
+                  </PageSpan> 
+                }
               </PageLi>
             ))}
 

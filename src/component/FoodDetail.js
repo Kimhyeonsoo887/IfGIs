@@ -4,6 +4,7 @@ import axios from 'axios';
 import FoodReviewPop from './popupComponent/FoodReviewPop';
 import ReviewPosts from './ReviewPosts';
 import styles from '../css/Login.module.css';
+import Pagination from './Pagination';
 
 export default function FoodDetail(){
 
@@ -11,6 +12,9 @@ export default function FoodDetail(){
     const {id} = useParams();
     const [isPopupBoo, setPopupBoo] = useState(false);
     const [reviews, setReviews] = useState([]);
+
+    const [currentPage, setCurrentPage] = useState(1); //현재페이지
+    const postsPerPage = 5; // 한페이지에서 보여줄 게시판 개수
 
     const [foodDetailData, foodDetailDispatch] = useReducer(reducer,{
         storeName : "",
@@ -57,7 +61,6 @@ export default function FoodDetail(){
                 id: id
             }
           }).then(function (res) {
-            console.log(res.data);
             setReviews(res.data);
           }).catch((error => {
             console.log(`error: ${error}`)
@@ -84,11 +87,20 @@ export default function FoodDetail(){
         setPopupBoo(false);
     }
 
+    /* 새로 추가한 부분 */
+    const indexOfLast = currentPage * postsPerPage; // 5
+    const indexOfFirst = indexOfLast - postsPerPage; // 0
+    const currentPosts = (reviews) => {
+      let currentPosts = 0;
+      currentPosts = reviews.slice(indexOfFirst, indexOfLast);
+      return currentPosts;
+    };
+
     return (
 
         <>
             <div>
-                <form style={{width:100+"%", height:400+"px"}}>
+                <form style={{width:100+"%", height:300+"px"}}>
 
                     <div>
                         <label>상세화면</label> <br/>
@@ -103,10 +115,20 @@ export default function FoodDetail(){
             </div>
 
 
-
-            <div style={{width:100+"%", height:500+"px", border:1+"px solid #e0e0e0"}}>
+            <div  style={{width:100+"%", height:450+"px", border:1+"px solid #e0e0e0"}} >
+                <h1>리뷰</h1>
                 <button className={styles.btn} style={{marginLeft:890 + "px"}} onClick={openPopUp}>리뷰 등록하기</button><br/>
-                {reviews.length > 0 ? <ReviewPosts reviews={reviews}></ReviewPosts> : "등록된 리뷰가 없습니다."}
+                <div className={styles.reviewDiv} style={{width:100+"%", height:300+"px"}}>
+                    {reviews.length > 0 ? <ReviewPosts reviews={currentPosts(reviews)}></ReviewPosts> : "등록된 리뷰가 없습니다."}
+                </div>
+                <br/>
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={reviews.length}
+                    paginate={setCurrentPage}
+                    currentPage={currentPage}
+                ></Pagination>
+
             </div>
 
             {isPopupBoo ? <FoodReviewPop open={openPopUp} close={closePopUp} header="리뷰 작성" id={id}></FoodReviewPop> : ""}

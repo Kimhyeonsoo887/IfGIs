@@ -1,5 +1,6 @@
 
 import React, { useState, useReducer } from 'react';
+
 import '../../css/Modal.css';
 import axios from 'axios';
 
@@ -79,6 +80,7 @@ const FoodReviewPop = (props) => {
 
             if(res.data !== 0){
                 alert("등록되었습니다.");
+                window.location.reload();
                 close();
             }
             
