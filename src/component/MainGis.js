@@ -17,7 +17,7 @@ export default function MainGis(){
    
 
     async function getCoordinate(){
-        axios.get("http://183.109.96.235:8080/getFoodStoreData", {
+        axios.get("http://3.36.90.170:8080/getFoodStoreData", {
             }).then(function (response) {
                 const data = response.data;
                 if(data.length != 0){
