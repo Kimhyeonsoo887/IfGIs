@@ -100,24 +100,24 @@ const FoodReviewPop = (props) => {
         // 모달이 열릴때 openModal 클래스가 생성된다.
         <div className={open ? 'openModal modal' : 'modal'}>
         {open ? (
-        <section>
-            <header>
-                {header}
-                <button className="close" onClick={close}>&times;</button>
-            </header>
-            <main>
-                <div>
-                    <label>제목</label><input type="text" name="title" onChange={(e) => {handleChange(e)}}></input><br/>
-                    <label>내용</label><input type="text" name="content" onChange={(e) => {handleChange(e)}}></input>
-                    <input type='file' name="file" accept='image/png, image/jpg, image/jpeg' onChange={e => {showImageFile(e)}}></input>
-                    <img width={'200px'} src={imageFile} />
-                </div>
-            </main>
-            <footer>
-                <button className="close" onClick={insertReview}>제출</button>
-                <button className="close" onClick={close}>닫기</button>
-            </footer>
-        </section>
+            <section>
+                <header>
+                    {header}
+                    <button className="close" onClick={close}>&times;</button>
+                </header>
+                <main>
+                    <div>
+                        <label>제목</label><input type="text" name="title" onChange={(e) => {handleChange(e)}}></input><br/>
+                        <label>내용</label><input type="text" name="content" onChange={(e) => {handleChange(e)}}></input>
+                        <input type='file' name="file" accept='image/png, image/jpg, image/jpeg' onChange={e => {showImageFile(e)}}></input>
+                        <img width={'200px'} src={imageFile} />
+                    </div>
+                </main>
+                <footer>
+                    <button className="close" onClick={insertReview}>제출</button>
+                    <button className="close" onClick={close}>닫기</button>
+                </footer>
+            </section>
         ) : null}
     </div>
     );
