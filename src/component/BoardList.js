@@ -13,7 +13,7 @@ export default function BoardList(){
     useEffect(() => {
       
         axios({
-            url: 'http://183.109.96.235:8080/getBoardList', // 통신할 웹문서
+            url: 'http://3.36.90.170:8080/getBoardList', // 통신할 웹문서
             method: 'GET' // 통신할 방식
           }).then(function (res) {
             setBoards(res.data);

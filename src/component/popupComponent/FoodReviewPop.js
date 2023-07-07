@@ -72,7 +72,7 @@ const FoodReviewPop = (props) => {
         formData.append("id", id);
         
         axios({
-            url: 'http://183.109.96.235:8080/insertFoodReview', // 통신할 웹문서
+            url: 'http://3.36.90.170:8080/insertFoodReview', // 통신할 웹문서
             method: 'POST', // 통신할 방식
             data: formData,
             headers: { "Content-Type": "multipart/form-data" }

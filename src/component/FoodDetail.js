@@ -40,7 +40,7 @@ export default function FoodDetail(){
 
     async function getFoodDetailData(){
         await axios({
-            url: 'http://183.109.96.235:8080/getFoodStoreDetailData',
+            url: 'http://3.36.90.170:8080/getFoodStoreDetailData',
             method: 'POST', // 통신할 방식
             data: { // 인자로 보낼 데이터
                 id: id
@@ -55,7 +55,7 @@ export default function FoodDetail(){
     async function getReviewData(){
 
         await axios({
-            url: 'http://183.109.96.235:8080/getFoodReview',
+            url: 'http://3.36.90.170:8080/getFoodReview',
             method: 'POST', // 통신할 방식
             data: { // 인자로 보낼 데이터
                 id: id
