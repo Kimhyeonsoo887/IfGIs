@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import { Link } from "react-router-dom";
 import BoardPosts from './BoardPosts';
 import Pagination from './Pagination';
+import {CONFIG_DATA} from '../config/config.js';
 
 export default function BoardList(){
 
@@ -13,7 +13,7 @@ export default function BoardList(){
     useEffect(() => {
       
         axios({
-            url: 'http://3.36.90.170:8080/getBoardList', // 통신할 웹문서
+            url: CONFIG_DATA.backEnd_url+'/getBoardList', // 통신할 웹문서
             method: 'GET' // 통신할 방식
           }).then(function (res) {
             setBoards(res.data);

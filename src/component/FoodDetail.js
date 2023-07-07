@@ -5,6 +5,7 @@ import FoodReviewPop from './popupComponent/FoodReviewPop';
 import ReviewPosts from './ReviewPosts';
 import styles from '../css/Login.module.css';
 import Pagination from './Pagination';
+import {CONFIG_DATA} from '../config/config.js';
 
 export default function FoodDetail(){
 
@@ -40,7 +41,7 @@ export default function FoodDetail(){
 
     async function getFoodDetailData(){
         await axios({
-            url: 'http://3.36.90.170:8080/getFoodStoreDetailData',
+            url: CONFIG_DATA.backEnd_url+'/getFoodStoreDetailData',
             method: 'POST', // 통신할 방식
             data: { // 인자로 보낼 데이터
                 id: id
@@ -55,7 +56,7 @@ export default function FoodDetail(){
     async function getReviewData(){
 
         await axios({
-            url: 'http://3.36.90.170:8080/getFoodReview',
+            url: CONFIG_DATA.backEnd_url+'/getFoodReview',
             method: 'POST', // 통신할 방식
             data: { // 인자로 보낼 데이터
                 id: id

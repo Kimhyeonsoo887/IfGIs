@@ -15,8 +15,6 @@ import NotFoundPage from './component/NotFoundPage';
 
 function App() {
 
-  
-
   return (
     <div className="App">
       <BrowserRouter>

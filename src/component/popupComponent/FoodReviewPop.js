@@ -4,6 +4,8 @@ import React, { useState, useReducer } from 'react';
 import '../../css/Modal.css';
 import axios from 'axios';
 
+import {CONFIG_DATA} from '../../config/config.js';
+
 const FoodReviewPop = (props) => {
 
     const { open, close, header, id } = props;
@@ -72,7 +74,7 @@ const FoodReviewPop = (props) => {
         formData.append("id", id);
         
         axios({
-            url: 'http://3.36.90.170:8080/insertFoodReview', // 통신할 웹문서
+            url: CONFIG_DATA.backEnd_url+'/insertFoodReview', // 통신할 웹문서
             method: 'POST', // 통신할 방식
             data: formData,
             headers: { "Content-Type": "multipart/form-data" }

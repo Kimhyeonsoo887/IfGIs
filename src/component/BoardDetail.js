@@ -4,6 +4,7 @@ import axios from 'axios';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import {CONFIG_DATA} from '../config/config.js';
 
 export default function BoardDetail(){
 
@@ -23,7 +24,7 @@ export default function BoardDetail(){
     async function getBoardDetail(){
 
         await axios({
-            url: 'http://3.36.90.170:8080/getBoardDetail', // 통신할 웹문서
+            url: CONFIG_DATA.backEnd_url+'/getBoardDetail', // 통신할 웹문서
             method: 'POST', // 통신할 방식
             data: { // 인자로 보낼 데이터
                 id: id,

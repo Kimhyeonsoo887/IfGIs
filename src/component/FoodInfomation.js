@@ -3,6 +3,7 @@ import {  useParams, useNavigate } from 'react-router-dom';
 import { useReducer } from 'react';
 import axios from 'axios';
 import styles from '../css/Login.module.css';
+import {CONFIG_DATA} from '../config/config.js';
 
 export default function FoodInfomation(){
 
@@ -74,7 +75,7 @@ export default function FoodInfomation(){
         }
 
         axios({
-            url: 'http://3.36.90.170:8080/insertFoodInformation', // 통신할 웹문서
+            url: CONFIG_DATA.backEnd_url+'/insertFoodInformation', // 통신할 웹문서
             method: 'POST', // 통신할 방식
             data: { storeName: state.storeName,
                     storeType: state.storeType,

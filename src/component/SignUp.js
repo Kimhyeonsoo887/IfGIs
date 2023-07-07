@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import axios from 'axios';
 import styles from '../css/Login.module.css';
+import {CONFIG_DATA} from '../config/config.js';
 
 export default function SignUp(){
 
@@ -15,7 +16,7 @@ export default function SignUp(){
     function onSubmitSignUp(){
 
         axios({
-            url: 'http://3.36.90.170:8080/signUp', // 통신할 웹문서
+            url: CONFIG_DATA.backEnd_url+'/signUp', // 통신할 웹문서
             method: 'POST', // 통신할 방식
             data: { // 인자로 보낼 데이터
                 user_id: user_id,

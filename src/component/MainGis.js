@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import {CONFIG_DATA} from '../config/config.js';
 const {kakao} = window;
 
 export default function MainGis(){
@@ -14,9 +15,8 @@ export default function MainGis(){
     let options;
     let map;
 
-   
     async function getCoordinate(){
-        axios.get("http://3.36.90.170:8080/getFoodStoreData", {
+        axios.get(CONFIG_DATA.backEnd_url+'/getFoodStoreData', {
             }).then(function (response) {
                 const data = response.data;
                 if(data.length != 0){
@@ -47,7 +47,8 @@ export default function MainGis(){
                               가게 이름:${coordinateData[i].storeName}<br>
                               주소: ${coordinateData[i].address}<br>
                               가게형식: ${coordinateData[i].storeType}<br>
-                              <a href="http://3.36.90.170:3000/foodDetail/${coordinateData[i].id}" target="_top" ">상세보기</a>
+
+                              <a href="${CONFIG_DATA.front_url}/foodDetail/${coordinateData[i].id}" target="_top" ">상세보기</a>
                             </div>
                         </div>`, 
 
@@ -100,7 +101,7 @@ export default function MainGis(){
         infowindows[i].close();
       } 
 
-      var iwContent = `<a href="http://3.36.90.170:3000/foodInfo/${latlng.La}/${latlng.Ma}/${detailAddress}" target="_top" style="font-size:13px;">${detailAddress} <br>제보하기</a>`,
+      var iwContent = `<a href="${CONFIG_DATA.front_url}/foodInfo/${latlng.La}/${latlng.Ma}/${detailAddress}" target="_top" style="font-size:13px;">${detailAddress} <br>제보하기</a>`,
           iwPosition = new kakao.maps.LatLng(latlng); //인포윈도우 표시 위치입니다
  
       // 인포윈도우를 생성합니다
