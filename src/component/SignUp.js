@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import axios from 'axios';
 import styles from '../css/Login.module.css';
 import {CONFIG_DATA} from '../config/config.js';
@@ -12,8 +12,24 @@ export default function SignUp(){
     const [password, setPassword] = useState("");
     const [username, setUserName] = useState("");
 
+    function onSubmitSignUp(e){
 
-    function onSubmitSignUp(){
+        e.preventDefault();
+
+        if(user_id == ""){
+            alert("아이디를 입력하세요.");
+            return;
+        }
+
+        if(password == ""){
+            alert("패스워드를 입력하세요.");
+            return;
+        }
+
+        if(username == ""){
+            alert("이름을 입력하세요.");
+            return;
+        }
 
         axios({
             url: CONFIG_DATA.backEnd_url+'/signUp', // 통신할 웹문서
@@ -23,7 +39,7 @@ export default function SignUp(){
                 password: password,
                 username: username
             }
-          }).then(function (res) {
+        }).then(function (res) {
 
             if(res.data === 1){
                 alert("완료");
@@ -32,11 +48,12 @@ export default function SignUp(){
                 alert("ID가 중복됩니다");
             }
             throw new Error('Network response was not ok.');
-          }).catch((error => {
+        }).catch((error => {
             console.log(`error: ${error}`)
-          }));
+        }));
 
     }
+
     return (
         <form style={{width:100+"%", height:700+"px"}}>
         
