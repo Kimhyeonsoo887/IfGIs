@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import {CONFIG_DATA} from '../config/config.js';
+import * as common from "../common/common.js";
+
 const {kakao} = window;
 
 export default function MainGis(){
@@ -47,7 +49,6 @@ export default function MainGis(){
                               가게 이름:${coordinateData[i].storeName}<br>
                               주소: ${coordinateData[i].address}<br>
                               가게형식: ${coordinateData[i].storeType}<br>
-
                               <a href="${CONFIG_DATA.front_url}/foodDetail/${coordinateData[i].id}" target="_top" ">상세보기</a>
                             </div>
                         </div>`, 
@@ -163,7 +164,26 @@ export default function MainGis(){
       
 
     },[coordinateData]); 
-    
+
+    useEffect(() =>{
+
+      common.getlocationIP().then((resolvedData) => {
+        const ip = resolvedData.IPv4;
+
+        axios.post(CONFIG_DATA.backEnd_url+'/insertLogData', {
+          "ip":ip
+        }).then(function (response) {
+          console.log(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        })
+
+      });
+
+
+     
+
+    },[])
   
 
     

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { useState, React } from 'react';
 import axios from 'axios';
 import styles from '../css/Login.module.css';
-
+import {CONFIG_DATA} from '../config/config.js';
 
 export default function Login(){
 
@@ -25,7 +25,7 @@ export default function Login(){
         }
 
         axios({
-            url: 'http://3.36.90.170:8080/login', // 통신할 웹문서
+            url: CONFIG_DATA.backEnd_url+'/login', // 통신할 웹문서
             method: 'POST', // 통신할 방식
             data: { // 인자로 보낼 데이터
                 user_id: user_id,
